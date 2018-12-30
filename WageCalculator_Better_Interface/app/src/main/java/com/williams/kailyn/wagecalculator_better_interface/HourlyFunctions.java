@@ -3,6 +3,11 @@ package com.williams.kailyn.wagecalculator_better_interface;
 import android.widget.EditText;
 import android.widget.SeekBar;
 
+////////////////////////////////////////
+// Functions for Hourly Employee SeekBar
+//  **Changes Wage and Hours
+////////////////////////////////////////
+
 public class HourlyFunctions {
 
     private SeekBar hourlyRateSeek;

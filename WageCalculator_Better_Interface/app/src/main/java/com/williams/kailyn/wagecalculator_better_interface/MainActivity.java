@@ -4,9 +4,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +26,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Spinner
+        Spinner spinner= findViewById(R.id.stateSpinner);
+        ArrayAdapter<CharSequence> adapter= ArrayAdapter.createFromResource(this,R.array.States,android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+
+
         //SeekBars
         hourlyRateSeek= findViewById(R.id.hourlyRateSeek);
         hoursSeek= findViewById(R.id.hoursSeek);
@@ -32,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
         hourlyRate= findViewById(R.id.hourlyRate);
         hours= findViewById(R.id.hours);
 
+
+        //Functions for SeekBar
         HourlyFunctions hourlyFunctions = new HourlyFunctions(hourlyRateSeek,hoursSeek);
         hourlyFunctions.changeHours(hours);
         hourlyFunctions.changeWage(hourlyRate);
@@ -48,11 +59,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(isNullTextFields(hourlyRate,hours))
                     return;
-                double wage= Double.parseDouble(hourlyRate.getText().toString().substring(1));
+                double wage= Double.parseDouble(hourlyRate.getText().toString());
                 double hrs= Double.parseDouble(hours.getText().toString());
                 WageCalculator wageCalculator= new WageCalculator(wage, hrs);
 
-                result.setText(wageCalculator.wageCalc()+" ");
+                result.setText("$"+wageCalculator.wageCalc()+" ");
             }
         });
     }
