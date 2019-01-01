@@ -14,11 +14,14 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private SeekBar hourlyRateSeek;
+    private Spinner spinner;
     private SeekBar hoursSeek;
     private EditText hourlyRate;
     private EditText hours;
     private TextView result;
     private Button calculateButton;
+    private StateTax stateTax= new StateTax(); //Gets state tax by matching spinner choice(State) with key-value pair(Tax Percentage)
+    private double tax=0.0;
 
 
     @Override
@@ -27,9 +30,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Spinner
-        Spinner spinner= findViewById(R.id.stateSpinner);
+        spinner= findViewById(R.id.stateSpinner);
         ArrayAdapter<CharSequence> adapter= ArrayAdapter.createFromResource(this,R.array.States,android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+        String state= spinner.getSelectedItem().toString(); //Gets Item from spinner
+        tax= stateTax.getTaxPercentage(state);
+
 
 
 
@@ -54,16 +60,19 @@ public class MainActivity extends AppCompatActivity {
         calculateButton= findViewById(R.id.calculateButton);
         result= findViewById(R.id.result);
 
+
         calculateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String state= spinner.getSelectedItem().toString(); //Gets Item from spinner
+                tax= stateTax.getTaxPercentage(state);  //Tax for each state
                 if(isNullTextFields(hourlyRate,hours))
                     return;
                 double wage= Double.parseDouble(hourlyRate.getText().toString());
                 double hrs= Double.parseDouble(hours.getText().toString());
                 WageCalculator wageCalculator= new WageCalculator(wage, hrs);
 
-                result.setText("$"+wageCalculator.wageCalc()+" ");
+                result.setText(tax+" ");
             }
         });
     }
