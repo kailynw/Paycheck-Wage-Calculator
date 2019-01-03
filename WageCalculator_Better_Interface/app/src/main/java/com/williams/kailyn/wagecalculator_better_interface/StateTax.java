@@ -19,6 +19,7 @@ public class StateTax {
         map.put("Colorado",.075);
         map.put("Connecticut",.0635);
         map.put("Delaware", 0.00);
+        map.put("D.C.",.0575);
         map.put("Florida",.068);
         map.put("Georgia",.070 );
         map.put("Hawaii",.0435 );
@@ -60,7 +61,6 @@ public class StateTax {
         map.put("West Virginia",.0629);
         map.put("Wisconsin",.0542);
         map.put("Wyoming",.0540);
-        map.put("D.C.",.0575);
 
 
 

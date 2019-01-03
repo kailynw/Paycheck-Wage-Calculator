@@ -9,6 +9,7 @@
         <item>Colorado</item>
         <item>Connecticut</item>
         <item>Delaware</item>
+        <item>D.C.</item>
         <item>Florida</item>
         <item>Georgia</item>
         <item>Hawaii</item>
@@ -52,5 +53,12 @@
         <item>Wisconsin</item>
         <item>Wyoming</item>
         <item>D.C.</item>
+    </string-array>
+
+    <string-array name="Martial_Status">
+        <item>Single</item>
+        <item>Married (Jointly)</item>
+        <item>Married (Separately)</item>
+        <item>Head of household</item>
     </string-array>
 </resources>

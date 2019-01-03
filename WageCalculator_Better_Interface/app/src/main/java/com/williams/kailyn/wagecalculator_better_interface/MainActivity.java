@@ -14,14 +14,14 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private SeekBar hourlyRateSeek;
-    private Spinner spinner;
+    private Spinner stateSpinner;
+    private Spinner statusSpinner;
     private SeekBar hoursSeek;
     private EditText hourlyRate;
     private EditText hours;
     private TextView result;
     private Button calculateButton;
-    private StateTax stateTax= new StateTax(); //Gets state tax by matching spinner choice(State) with key-value pair(Tax Percentage)
-    private double tax=0.0;
+    private StateTax stateTax= new StateTax(); //Gets state tax by matching spinner choice(State) with key-value pair(State Tax Percentage)
 
 
     @Override
@@ -30,13 +30,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Spinner
-        spinner= findViewById(R.id.stateSpinner);
-        ArrayAdapter<CharSequence> adapter= ArrayAdapter.createFromResource(this,R.array.States,android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        String state= spinner.getSelectedItem().toString(); //Gets Item from spinner
-        tax= stateTax.getTaxPercentage(state);
+        stateSpinner= findViewById(R.id.stateSpinner);
+        ArrayAdapter<CharSequence> adapter1= ArrayAdapter.createFromResource(this,R.array.States,android.R.layout.simple_spinner_dropdown_item);
+        stateSpinner.setAdapter(adapter1);
 
-
+        statusSpinner= findViewById(R.id.statusSpinner);
+        ArrayAdapter<CharSequence>  adapter2= ArrayAdapter.createFromResource(this,R.array.Martial_Status,android.R.layout.simple_spinner_dropdown_item);
+        statusSpinner.setAdapter(adapter2);
 
 
         //SeekBars
@@ -49,9 +49,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         //Functions for SeekBar
-        HourlyFunctions hourlyFunctions = new HourlyFunctions(hourlyRateSeek,hoursSeek);
-        hourlyFunctions.changeHours(hours);
-        hourlyFunctions.changeWage(hourlyRate);
+        HourlySeekFunctions hourlySeekFunctions = new HourlySeekFunctions(hourlyRateSeek,hoursSeek);
+        hourlySeekFunctions.changeHours(hours);
+        hourlySeekFunctions.changeWage(hourlyRate);
         calculateWage();
     }
 
@@ -60,19 +60,22 @@ public class MainActivity extends AppCompatActivity {
         calculateButton= findViewById(R.id.calculateButton);
         result= findViewById(R.id.result);
 
-
         calculateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String state= spinner.getSelectedItem().toString(); //Gets Item from spinner
-                tax= stateTax.getTaxPercentage(state);  //Tax for each state
+                //State Tax Percentage
+                String state= stateSpinner.getSelectedItem().toString(); //Gets Item from spinner
+                double stateTaxPerc= stateTax.getTaxPercentage(state);  //Tax for each state
+
+                //Federal Tax Status
+                String status= statusSpinner.getSelectedItem().toString();
                 if(isNullTextFields(hourlyRate,hours))
                     return;
                 double wage= Double.parseDouble(hourlyRate.getText().toString());
                 double hrs= Double.parseDouble(hours.getText().toString());
                 WageCalculator wageCalculator= new WageCalculator(wage, hrs);
-
-                result.setText(tax+" ");
+                System.out.println(salaryCalculation(wageCalculator.wageCalc(),status,stateTaxPerc));
+                result.setText(0+"");
             }
         });
     }
@@ -86,4 +89,11 @@ public class MainActivity extends AppCompatActivity {
         else
             return false;
     }
+
+    public double salaryCalculation(double salary, String status, double stateTaxPerc){
+        FederalTax federalTax= new FederalTax(status, salary);
+        double taxedSalary= salary - (salary*(stateTaxPerc + federalTax.getFederalTaxPerc()));
+        return taxedSalary;
+    }
+
 }

@@ -8,12 +8,12 @@ import android.widget.SeekBar;
 //  **Changes Wage and Hours
 ////////////////////////////////////////
 
-public class HourlyFunctions {
+public class HourlySeekFunctions {
 
     private SeekBar hourlyRateSeek;
     private SeekBar hoursSeek;
 
-    public HourlyFunctions(SeekBar hourlyRateSeek, SeekBar hoursSeek){
+    public HourlySeekFunctions(SeekBar hourlyRateSeek, SeekBar hoursSeek){
         this.hourlyRateSeek = hourlyRateSeek;
         this.hoursSeek =hoursSeek;
 
@@ -27,18 +27,13 @@ public class HourlyFunctions {
                 String total = progress + "";
 
                 hourlyRate.setText(total);
-
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
+            public void onStartTrackingTouch(SeekBar seekBar) { }
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
+            public void onStopTrackingTouch(SeekBar seekBar) { }
         });
     }
 
@@ -49,20 +44,14 @@ public class HourlyFunctions {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                     String total= progress+"";
-
                     hours.setText(total);
-
                 }
 
                 @Override
-                public void onStartTrackingTouch(SeekBar seekBar) {
-
-                }
+                public void onStartTrackingTouch(SeekBar seekBar) { }
 
                 @Override
-                public void onStopTrackingTouch(SeekBar seekBar) {
-
-                }
+                public void onStopTrackingTouch(SeekBar seekBar) { }
             });
         }
 }
