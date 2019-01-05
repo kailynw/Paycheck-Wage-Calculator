@@ -67,7 +67,6 @@ public class StateTax {
     }
 
     public double getTaxPercentage(String state){
-
         return map.get(state);
     }
 }

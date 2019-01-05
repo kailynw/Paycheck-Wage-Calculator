@@ -20,9 +20,9 @@ public class MainActivity extends AppCompatActivity {
     private EditText hourlyRate;
     private EditText hours;
     private TextView result;
+    private TextView preTaxedText;
     private Button calculateButton;
     private StateTax stateTax= new StateTax(); //Gets state tax by matching spinner choice(State) with key-value pair(State Tax Percentage)
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +38,10 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<CharSequence>  adapter2= ArrayAdapter.createFromResource(this,R.array.Martial_Status,android.R.layout.simple_spinner_dropdown_item);
         statusSpinner.setAdapter(adapter2);
 
-
         //SeekBars
         hourlyRateSeek= findViewById(R.id.hourlyRateSeek);
         hoursSeek= findViewById(R.id.hoursSeek);
+
 
         //TextFields
         hourlyRate= findViewById(R.id.hourlyRate);
@@ -49,9 +49,10 @@ public class MainActivity extends AppCompatActivity {
 
 
         //Functions for SeekBar
-        HourlySeekFunctions hourlySeekFunctions = new HourlySeekFunctions(hourlyRateSeek,hoursSeek);
-        hourlySeekFunctions.changeHours(hours);
-        hourlySeekFunctions.changeWage(hourlyRate);
+        preTaxedText= findViewById(R.id.preTaxedText);
+        HourlySeekFunctions hourlySeekFunctions = new HourlySeekFunctions(hourlyRateSeek,hoursSeek,preTaxedText,hours,hourlyRate);
+        hourlySeekFunctions.changeHours();
+        hourlySeekFunctions.changeWage();
         calculateWage();
     }
 
@@ -74,8 +75,7 @@ public class MainActivity extends AppCompatActivity {
                 double wage= Double.parseDouble(hourlyRate.getText().toString());
                 double hrs= Double.parseDouble(hours.getText().toString());
                 WageCalculator wageCalculator= new WageCalculator(wage, hrs);
-                System.out.println(salaryCalculation(wageCalculator.wageCalc(),status,stateTaxPerc));
-                result.setText(0+"");
+                result.setText(salaryCalculation(wageCalculator.wageCalc(),status,stateTaxPerc)+"");
             }
         });
     }
