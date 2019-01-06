@@ -10,12 +10,12 @@
         android:id="@+id/spinnerConstraintLayout"
         android:layout_width="wrap_content"
         android:layout_height="134dp"
-        android:layout_marginTop="121dp"
+        android:layout_marginTop="2dp"
         android:layout_marginBottom="44dp"
         app:layout_constraintBottom_toTopOf="@+id/slidersLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/payFrequencyGroup">
 
         <RelativeLayout
             android:id="@+id/martialStatusLayout"
@@ -128,6 +128,7 @@
             android:layout_marginBottom="17dp"
             android:text="Select a state"
             android:textSize="18sp"
+            android:textStyle="italic"
             app:layout_constraintBottom_toTopOf="@+id/stateLayout"
             app:layout_constraintEnd_toStartOf="@+id/textView2"
             app:layout_constraintHorizontal_bias="0.333"
@@ -144,6 +145,7 @@
             android:layout_marginBottom="17dp"
             android:text="Marital status"
             android:textSize="18sp"
+            android:textStyle="italic"
             app:layout_constraintBottom_toTopOf="@+id/martialStatusLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -281,6 +283,7 @@
             android:gravity="center_horizontal"
             android:text="Hourly Wage"
             android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/hourlyRate"
             app:layout_constraintEnd_toStartOf="@+id/hoursText"
             app:layout_constraintHorizontal_bias="0.396"
@@ -301,6 +304,7 @@
             android:gravity="center_horizontal"
             android:text="Hours"
             android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/hours"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -310,7 +314,7 @@
 
     <TextView
         android:id="@+id/result"
-        android:layout_width="128dp"
+        android:layout_width="210dp"
         android:layout_height="63dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
@@ -342,5 +346,75 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/slidersLayout"
         app:layout_constraintVertical_bias="0.0" />
+
+    <RadioGroup
+        android:id="@+id/payFrequencyGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginRight="6dp"
+        android:layout_marginBottom="8dp"
+        android:checkedButton="@+id/weeklyButton"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/spinnerConstraintLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioButton
+            android:id="@+id/weeklyButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Weekly"
+            android:textSize="18sp" />
+
+        <RadioButton
+            android:id="@+id/monthlyButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Monthly"
+            android:textSize="18sp" />
+
+        <RadioButton
+            android:id="@+id/semi_annualButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Semi-Annual"
+            android:textSize="18sp" />
+
+        <RadioButton
+            android:id="@+id/annualButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Annual"
+            android:textSize="18sp" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Pay Frequency"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/payFrequencyGroup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.4" />
 
 </android.support.constraint.ConstraintLayout>

@@ -73,12 +73,6 @@ public class HourlySeekFunctions {
                         String money= moneyFormat(new WageCalculator(Double.parseDouble(hourlyRate.getText().toString()), Double.parseDouble(hours.getText().toString())).wageCalc() + "");
                         preTaxedText.setText("Pre-Taxed: "+ money);
                     }
-
-
-
-
-
-
                 }
 
                 @Override
@@ -103,4 +97,3 @@ public class HourlySeekFunctions {
             return false;
     }
 }
-//                            }
