@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -19,12 +20,16 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
+    private RelativeLayout salaryView;
+    private RelativeLayout hourlyView;
     private SeekBar hourlyRateSeek;
+    private SeekBar hoursSeek;
+    private SeekBar salarySeek;
     private Spinner stateSpinner;
     private Spinner statusSpinner;
-    private SeekBar hoursSeek;
     private EditText hourlyRate;
     private EditText hours;
+    private EditText salary;
     private TextView result;
     private TextView preTaxedText;
     private Button calculateButton;
@@ -51,18 +56,19 @@ public class MainActivity extends AppCompatActivity {
         //SeekBars
         hourlyRateSeek= findViewById(R.id.hourlyRateSeek);
         hoursSeek= findViewById(R.id.hoursSeek);
+        salarySeek= findViewById(R.id.salarySeek);
 
 
-        //TextFields
+        //EditText Fields
         hourlyRate= findViewById(R.id.hourlyRate);
         hours= findViewById(R.id.hours);
+        salary= findViewById(R.id.salary);
 
 
         //Functions for SeekBar
         preTaxedText= findViewById(R.id.preTaxedText);
         HourlySeekFunctions hourlySeekFunctions = new HourlySeekFunctions(hourlyRateSeek,hoursSeek,preTaxedText,hours,hourlyRate);
-        hourlySeekFunctions.changeHours();
-        hourlySeekFunctions.changeWage();
+        SalarySeekFunctions salarySeekFunctions= new SalarySeekFunctions(salarySeek,salary);
         calculateWage();
     }
 
@@ -84,29 +90,43 @@ public class MainActivity extends AppCompatActivity {
                 //Pay Frequency
                 int checked= payFrequencyGroup.getCheckedRadioButtonId();
                 RadioButton radioButton= findViewById(checked);
-                String payFrequency=radioButton.getText().toString();
+                String payType=radioButton.getText().toString();
+
+                if(payType.equals("Hourly")) {
+
+                    if (isNullTextFields(hourlyRate, hours))
+                        return;
+                    double wage = Double.parseDouble(hourlyRate.getText().toString());
+                    double hrs = Double.parseDouble(hours.getText().toString());
+                    WageCalculator wageCalculator = new WageCalculator(wage, hrs);
+
+                    result.setText(salaryCalculation(wageCalculator.wageCalc(), status, stateTaxPerc, payType));
+                }
+
+                else{
+                    if(isNullTextFields(salary))
+                        return;
+
+                    double salaryConv= Double.parseDouble(salary.getText().toString());
+
+                    result.setText(salaryCalculation(salaryConv,status,stateTaxPerc,payType));
 
 
-                if(isNullTextFields(hourlyRate,hours))
-                    return;
-                double wage= Double.parseDouble(hourlyRate.getText().toString());
-                double hrs= Double.parseDouble(hours.getText().toString());
-                WageCalculator wageCalculator= new WageCalculator(wage, hrs);
+                }
 
-                System.out.println(payFrequency);
-                result.setText(salaryCalculation(wageCalculator.wageCalc(),status,stateTaxPerc,payFrequency));
             }
         });
     }
 
     //Checks if EditText fields are empty
-    public boolean isNullTextFields(EditText text1, EditText text2){
-        if(TextUtils.isEmpty(text1.getText().toString())|| TextUtils.isEmpty(text2.getText().toString())){
-            Toast.makeText(getApplicationContext(), "Empty Fields", Toast.LENGTH_SHORT).show();
-            return true;
+    public boolean isNullTextFields(EditText ...text){
+        for(EditText i: text) {
+            if (TextUtils.isEmpty(i.getText().toString())) {
+                Toast.makeText(getApplicationContext(), "Empty Fields", Toast.LENGTH_SHORT).show();
+                return true;
+            }
         }
-        else
-            return false;
+        return false;
     }
 
     public String salaryCalculation(double salary, String status, double stateTaxPerc, String radioText){
@@ -117,20 +137,36 @@ public class MainActivity extends AppCompatActivity {
 
     public double payFrequencyAmount(String radioText){
 
-        if(radioText.equals("Weekly"))
+        if(radioText.equals("Hourly"))
             return 52;
-        else if(radioText.equals("Monthly"))
-            return 12;
-        else if(radioText.equals("Semi-Annual"))
-            return 2;
         else
             return 1;
     }
 
-    private  String moneyFormat(String string){
+    private String moneyFormat(String string){
         double number= Double.parseDouble(string);
         NumberFormat numberFormat= NumberFormat.getCurrencyInstance(Locale.US);
         return numberFormat.format(number);
     }
+
+    public void hourlyRadioClick(View view){
+        hourlyView= findViewById(R.id.hourlyView);
+        salaryView= findViewById(R.id.salaryView);
+
+        hourlyView.setVisibility(View.VISIBLE);
+        salaryView.setVisibility(View.INVISIBLE);
+        preTaxedText.setVisibility(View.VISIBLE);
+    }
+
+    public void salaryRadioClick(View view){
+        salaryView= findViewById(R.id.salaryView);
+        hourlyView= findViewById(R.id.hourlyView);
+
+        salaryView.setVisibility(View.VISIBLE);
+        hourlyView.setVisibility(View.INVISIBLE);
+        preTaxedText.setVisibility(View.INVISIBLE);
+    }
+
+
 
 }

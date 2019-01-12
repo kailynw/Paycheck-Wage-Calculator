@@ -1,8 +1,6 @@
 package com.williams.kailyn.wagecalculator_better_interface;
 
 import java.text.NumberFormat;
-import java.util.LinkedList;
-import java.util.Stack;
 import java.util.Locale;
 
 public class Driver {

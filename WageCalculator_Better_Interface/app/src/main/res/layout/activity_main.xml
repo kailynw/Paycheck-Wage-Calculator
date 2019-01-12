@@ -12,7 +12,7 @@
         android:layout_height="134dp"
         android:layout_marginTop="2dp"
         android:layout_marginBottom="44dp"
-        app:layout_constraintBottom_toTopOf="@+id/slidersLayout"
+        app:layout_constraintBottom_toTopOf="@+id/hourlyView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/payFrequencyGroup">
@@ -166,10 +166,10 @@
         android:text="Calculate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/slidersLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/hourlyView" />
 
     <RelativeLayout
-        android:id="@+id/slidersLayout"
+        android:id="@+id/hourlyView"
         android:layout_width="351dp"
         android:layout_height="174dp"
         android:layout_marginStart="27dp"
@@ -177,6 +177,7 @@
         android:layout_marginTop="44dp"
         android:layout_marginEnd="27dp"
         android:layout_marginRight="27dp"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerConstraintLayout">
@@ -344,19 +345,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.388"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/slidersLayout"
+        app:layout_constraintTop_toBottomOf="@+id/hourlyView"
         app:layout_constraintVertical_bias="0.0" />
 
     <RadioGroup
         android:id="@+id/payFrequencyGroup"
         android:layout_width="wrap_content"
         android:layout_height="45dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
         android:layout_marginTop="68dp"
         android:layout_marginEnd="6dp"
         android:layout_marginRight="6dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="6dp"
         android:checkedButton="@+id/weeklyButton"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/spinnerConstraintLayout"
@@ -369,36 +370,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Weekly"
-            android:textSize="18sp" />
-
-        <RadioButton
-            android:id="@+id/monthlyButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Monthly"
-            android:textSize="18sp" />
-
-        <RadioButton
-            android:id="@+id/semi_annualButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Semi-Annual"
-            android:textSize="18sp" />
+            android:onClick="hourlyRadioClick"
+            android:text="Hourly"
+            android:textSize="20sp" />
 
         <RadioButton
             android:id="@+id/annualButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Annual"
-            android:textSize="18sp" />
+            android:onClick="salaryRadioClick"
+            android:text="Salary"
+            android:textSize="20sp" />
     </RadioGroup>
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/incomeFrequencyText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -407,8 +394,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Pay Frequency"
-        android:textSize="20sp"
+        android:text="Income Type"
+        android:textSize="23sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/payFrequencyGroup"
         app:layout_constraintEnd_toEndOf="parent"
@@ -416,5 +403,90 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.4" />
+
+    <RelativeLayout
+        android:id="@+id/salaryView"
+        android:layout_width="371dp"
+        android:layout_height="266dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="32dp"
+        android:onClick="salaryRadioClick"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/calculateButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerConstraintLayout">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="84dp"
+            android:layout_height="34dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="165dp"
+            android:layout_marginLeft="165dp"
+            android:layout_marginTop="49dp"
+            android:layout_marginEnd="122dp"
+            android:layout_marginRight="122dp"
+            android:text="Salary"
+            android:textSize="23sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.456"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="63dp" />
+
+        <EditText
+            android:id="@+id/salary"
+            android:layout_width="192dp"
+            android:layout_height="39dp"
+            android:layout_below="@+id/textView4"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="59dp"
+            android:layout_marginLeft="59dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="44dp"
+            android:layout_marginRight="44dp"
+            android:layout_marginBottom="99dp"
+            android:background="@drawable/border"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="$50,000"
+            android:inputType="numberDecimal"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.507"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+        <SeekBar
+            android:id="@+id/salarySeek"
+            android:layout_width="226dp"
+            android:layout_height="62dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="59dp"
+            android:layout_marginLeft="59dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="35dp"
+            android:max="1000000"
+            android:progress="50000" />
+    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

@@ -27,11 +27,13 @@ public class HourlySeekFunctions {
         this.preTaxedText = preTaxedText;
         this.hours= hours;
         this.hourlyRate=hourlyRate;
+        changeHours();
+        changeWage();
 
     }
 
     //Change Wage using seekBar
-    public void changeWage( ) {
+    private void changeWage( ) {
         hourlyRateSeek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -59,7 +61,7 @@ public class HourlySeekFunctions {
 
 
         // Change Hours using seekBar
-        public void changeHours( ) {
+        private void changeHours( ) {
             hoursSeek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -83,14 +85,14 @@ public class HourlySeekFunctions {
             });
         }
 
-    private  String moneyFormat(String string){
+    private String moneyFormat(String string){
         double number= Double.parseDouble(string);
         NumberFormat numberFormat= NumberFormat.getCurrencyInstance(Locale.US);
 
         return numberFormat.format(number);
     }
 
-    public boolean isNullTextFields(){
+    private boolean isNullTextFields(){
         if(TextUtils.isEmpty(hours.getText().toString())||TextUtils.isEmpty(hourlyRate.getText().toString()))
             return true;
         else
