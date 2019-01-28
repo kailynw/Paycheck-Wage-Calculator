@@ -44,7 +44,7 @@ public class HourlySeekFunctions {
                 }
                 else{
                     String money = moneyFormat(new WageCalculator(Double.parseDouble(hourlyRate.getText().toString()), Double.parseDouble(hours.getText().toString())).wageCalc() + "");
-                    preTaxedText.setText("Pre-Taxed: " +money);
+                    preTaxedText.setText("Pre-Taxed Weekly: " +money);
                 }
 
 
@@ -60,6 +60,7 @@ public class HourlySeekFunctions {
     }
 
 
+
         // Change Hours using seekBar
         private void changeHours( ) {
             hoursSeek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -73,7 +74,7 @@ public class HourlySeekFunctions {
                     }
                     else{
                         String money= moneyFormat(new WageCalculator(Double.parseDouble(hourlyRate.getText().toString()), Double.parseDouble(hours.getText().toString())).wageCalc() + "");
-                        preTaxedText.setText("Pre-Taxed: "+ money);
+                        preTaxedText.setText("Pre-Taxed Weekly: "+ money);
                     }
                 }
 

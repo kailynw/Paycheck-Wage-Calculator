@@ -1,5 +1,6 @@
 package com.williams.kailyn.wagecalculator_better_interface;
 
+import android.content.Intent;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -92,6 +93,11 @@ public class MainActivity extends AppCompatActivity {
                 RadioButton radioButton= findViewById(checked);
                 String payType=radioButton.getText().toString();
 
+
+                //WageResults Class
+                Intent wageResults= new Intent(MainActivity.this, WageResults.class);
+
+                //If "Hourly" Button selected
                 if(payType.equals("Hourly")) {
 
                     if (isNullTextFields(hourlyRate, hours))
@@ -100,18 +106,31 @@ public class MainActivity extends AppCompatActivity {
                     double hrs = Double.parseDouble(hours.getText().toString());
                     WageCalculator wageCalculator = new WageCalculator(wage, hrs);
 
-                    result.setText(salaryCalculation(wageCalculator.wageCalc(), status, stateTaxPerc, payType));
+
+                    //Opens new Activity to display results for Hourly
+
+                    double preTaxedSalary= wageCalculator.wageCalc()*52;
+                    wageResults.putExtra("PRE_TAX",moneyFormat(preTaxedSalary));
+                    wageResults.putExtra("FEDERAL_TAX",moneyFormat(preTaxedSalary * new FederalTax(status,preTaxedSalary).getFederalTaxPerc()));
+                    wageResults.putExtra("STATE_TAX",moneyFormat(stateTaxPerc* preTaxedSalary));
+                    wageResults.putExtra("SALARY",salaryCalculation(preTaxedSalary,status,stateTaxPerc,payType));
+                    startActivity(wageResults);
                 }
 
+                //If "Salary" Button selected
                 else{
                     if(isNullTextFields(salary))
                         return;
 
                     double salaryConv= Double.parseDouble(salary.getText().toString());
 
-                    result.setText(salaryCalculation(salaryConv,status,stateTaxPerc,payType));
+                    //Opens new Activity to display results for Salary
 
-
+                    wageResults.putExtra("PRE_TAX",moneyFormat(salaryConv));
+                    wageResults.putExtra("FEDERAL_TAX",moneyFormat(salaryConv * new FederalTax(status,salaryConv).getFederalTaxPerc()));
+                    wageResults.putExtra("STATE_TAX",moneyFormat(stateTaxPerc* salaryConv));
+                    wageResults.putExtra("SALARY",salaryCalculation(salaryConv,status,stateTaxPerc,payType));
+                    startActivity(wageResults);
                 }
 
             }
@@ -132,19 +151,16 @@ public class MainActivity extends AppCompatActivity {
     public String salaryCalculation(double salary, String status, double stateTaxPerc, String radioText){
         FederalTax federalTax= new FederalTax(status, salary);
         double taxedSalary= salary - (salary*(stateTaxPerc + federalTax.getFederalTaxPerc()));
-        return moneyFormat(taxedSalary*payFrequencyAmount(radioText)+"");
+        return moneyFormat(taxedSalary+"");
     }
 
-    public double payFrequencyAmount(String radioText){
-
-        if(radioText.equals("Hourly"))
-            return 52;
-        else
-            return 1;
-    }
 
     private String moneyFormat(String string){
         double number= Double.parseDouble(string);
+        NumberFormat numberFormat= NumberFormat.getCurrencyInstance(Locale.US);
+        return numberFormat.format(number);
+    }
+    private String moneyFormat(double number){
         NumberFormat numberFormat= NumberFormat.getCurrencyInstance(Locale.US);
         return numberFormat.format(number);
     }
