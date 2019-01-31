@@ -1,6 +1,6 @@
 # Paycheck/Wage Calculator
 
-An Android "paycheck/wage calculaotr" application that calculates your pay based on income, marital status, and location. Also displays deducted tax information, pre-taxed salary, and post tax-salary.
+An Android "paycheck/wage calculator" application that calculates your pay based on income, marital status, and location. Also displays deducted tax information, pre-taxed salary, and post tax-salary.
 
 # What I Learned
 
