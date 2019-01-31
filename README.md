@@ -6,4 +6,4 @@ An Android "paycheck/wage calculator" application that calculates your pay based
 
 * Developed a user interface within the XML file using Constraint and Relative Layouts, Spinner, SeekBar, RadioButton/RadioGroup.
 * Created a correlation between the state and state tax percentage using a HashMap
-* Integrated visiblity modifiers that change the UI when selcting "Houly" or "Salary" calculation
+* Integrated visiblity modifiers that change the UI when selcting "Hourly" or "Salary" calculation
