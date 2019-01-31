@@ -13,7 +13,7 @@ public class WageResults extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wage_results);
-        
+
 
         //TextViews
         TextView preTaxedResult= findViewById(R.id.preTaxedResult);
